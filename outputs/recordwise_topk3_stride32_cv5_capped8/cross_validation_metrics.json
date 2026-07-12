@@ -1,0 +1,82 @@
+{
+  "folds": [
+    {
+      "fold": 1,
+      "window_accuracy": 0.8492647058823529,
+      "window_macro_f1": 0.753918579539347,
+      "window_weighted_f1": 0.8489334991127582,
+      "recording_accuracy": 0.9166666666666666,
+      "recording_macro_f1": 0.7352941176470589,
+      "recording_weighted_f1": 0.8774509803921569
+    },
+    {
+      "fold": 2,
+      "window_accuracy": 0.814663951120163,
+      "window_macro_f1": 0.6264949083806712,
+      "window_weighted_f1": 0.830951107196766,
+      "recording_accuracy": 0.75,
+      "recording_macro_f1": 0.6225490196078431,
+      "recording_weighted_f1": 0.687908496732026
+    },
+    {
+      "fold": 3,
+      "window_accuracy": 0.7995594713656388,
+      "window_macro_f1": 0.6581541091012676,
+      "window_weighted_f1": 0.8400510865139008,
+      "recording_accuracy": 0.9166666666666666,
+      "recording_macro_f1": 0.7352941176470589,
+      "recording_weighted_f1": 0.8774509803921569
+    },
+    {
+      "fold": 4,
+      "window_accuracy": 0.7674418604651163,
+      "window_macro_f1": 0.6232330827067669,
+      "window_weighted_f1": 0.7902617007635366,
+      "recording_accuracy": 0.75,
+      "recording_macro_f1": 0.608974358974359,
+      "recording_weighted_f1": 0.7264957264957266
+    },
+    {
+      "fold": 5,
+      "window_accuracy": 0.797752808988764,
+      "window_macro_f1": 0.6607033639143731,
+      "window_weighted_f1": 0.8516464511104237,
+      "recording_accuracy": 1.0,
+      "recording_macro_f1": 1.0,
+      "recording_weighted_f1": 1.0
+    }
+  ],
+  "summary": {
+    "window_accuracy": {
+      "mean": 0.805736559564407,
+      "std": 0.029760622107244956
+    },
+    "window_macro_f1": {
+      "mean": 0.6645008087284852,
+      "std": 0.052909622452607184
+    },
+    "window_weighted_f1": {
+      "mean": 0.832368768939477,
+      "std": 0.0249000616169016
+    },
+    "recording_accuracy": {
+      "mean": 0.8666666666666666,
+      "std": 0.11180339887498947
+    },
+    "recording_macro_f1": {
+      "mean": 0.740422322775264,
+      "std": 0.15700784238061635
+    },
+    "recording_weighted_f1": {
+      "mean": 0.8338612368024133,
+      "std": 0.12671994245849016
+    }
+  },
+  "configuration": {
+    "folds": 5,
+    "inner_folds": 4,
+    "seed": 42,
+    "imbalance_strategy": "capped",
+    "max_class_weight": 8.0
+  }
+}

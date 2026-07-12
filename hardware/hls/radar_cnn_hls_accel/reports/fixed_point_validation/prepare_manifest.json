@@ -1,0 +1,11 @@
+{
+  "num_samples": 8,
+  "checkpoint": "outputs/final_model/radar_dscnn2d_topk3_capped8_best.pth",
+  "cache": "outputs/recordwise_topk3_stride32/test/spectrogram_cache.npz",
+  "next_step": "Run tb_real_samples.cpp in Vitis HLS C simulation, capture stdout to csim_output.txt, then rerun this script with --hls-output.",
+  "expected_outputs": [
+    "input_samples.txt",
+    "pytorch_reference.json",
+    "pytorch_reference.csv"
+  ]
+}

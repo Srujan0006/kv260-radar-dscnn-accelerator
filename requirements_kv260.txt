@@ -1,0 +1,4 @@
+numpy
+scipy
+matplotlib
+# VART/XIR come from the KV260 Vitis-AI runtime image; do not pip-install them.

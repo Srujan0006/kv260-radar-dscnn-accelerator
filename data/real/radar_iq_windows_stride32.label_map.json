@@ -1,0 +1,13 @@
+{
+  "label_source": "prefix",
+  "prefix_to_label": {
+    "C": 0,
+    "D": 1,
+    "b": 2,
+    "h": 3,
+    "p": 4,
+    "r": 5,
+    "s": 6
+  },
+  "note": "If label_source is prefix, labels are assigned from first character of record ID."
+}

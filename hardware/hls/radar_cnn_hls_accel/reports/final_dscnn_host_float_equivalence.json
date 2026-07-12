@@ -1,0 +1,20 @@
+{
+  "sample_id": "row013:D2:0:256",
+  "label": 0,
+  "pytorch_logits": [
+    3.8785924911499023,
+    -6.631261825561523,
+    3.5030417442321777,
+    -8.056260108947754
+  ],
+  "hls_float_logits": [
+    3.878594160079956,
+    -6.631261348724365,
+    3.5030412673950195,
+    -8.056259155273438
+  ],
+  "max_abs_error": 1.6689300537109375e-06,
+  "tolerance": 0.0002,
+  "status": "passed",
+  "scope": "host-float equivalence; not fixed-point Vitis C simulation"
+}

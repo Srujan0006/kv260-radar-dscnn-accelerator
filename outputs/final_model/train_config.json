@@ -1,0 +1,52 @@
+{
+  "selected_checkpoint": "outputs/final_model/radar_dscnn2d_topk3_capped8_best.pth",
+  "source_checkpoint": "outputs/recordwise_topk3_stride32_capped8/best_model.pth",
+  "checkpoint_sha256": "458bc509a74fdb9863d5ac74287cba2f5d28c8f4b7701a9c2e0cefd7530a9738",
+  "selection": {
+    "criterion": "validation_macro_f1",
+    "best_validation_macro_f1": 0.7839002267573696,
+    "best_epoch": 35,
+    "candidate_scope": "completed capped-weight DS-CNN runs",
+    "test_metrics_used_for_selection": false
+  },
+  "model": {
+    "architecture": "radar_dscnn2d",
+    "input_shape": [1, 100, 100],
+    "num_classes": 4,
+    "class_names": ["Drone", "Bird", "Human", "CornerReflector"]
+  },
+  "preprocessing": {
+    "range_mode": "topk_energy_mean",
+    "top_k": 3,
+    "image_size": 100,
+    "window": 256,
+    "stride": 32
+  },
+  "split": {
+    "strategy": "grouped_stratified_recording_rows",
+    "ratios": {"train": 0.7, "validation": 0.15, "test": 0.15},
+    "seed": 42,
+    "recording_row_overlap": 0
+  },
+  "training": {
+    "augmentation": "RadarSpecAugment_train_only",
+    "imbalance_strategy": "capped",
+    "max_class_weight": 8.0,
+    "class_weights": [
+      0.2838594704684318,
+      4.569672131147541,
+      4.35546875,
+      8.0
+    ],
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 32,
+    "epochs_requested": 100,
+    "epochs_completed": 47,
+    "early_stopping_patience": 12,
+    "scheduler": "ReduceLROnPlateau",
+    "scheduler_patience": 8,
+    "checkpoint_metric": "validation_macro_f1"
+  }
+}

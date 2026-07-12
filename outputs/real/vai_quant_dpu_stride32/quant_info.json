@@ -1,0 +1,36 @@
+{
+  "param":
+  {
+    "Radar2DCNN::features.0.block.0.weight":[[8,6]],
+    "Radar2DCNN::features.0.block.0.bias":[[8,6]],
+    "Radar2DCNN::features.2.block.0.weight":[[8,7]],
+    "Radar2DCNN::features.2.block.0.bias":[[8,7]],
+    "Radar2DCNN::features.4.block.0.weight":[[8,8]],
+    "Radar2DCNN::features.4.block.0.bias":[[8,7]],
+    "Radar2DCNN::features.6.block.0.weight":[[8,8]],
+    "Radar2DCNN::features.6.block.0.bias":[[8,6]],
+    "Radar2DCNN::classifier_conv.weight":[[8,7]],
+    "Radar2DCNN::classifier_conv.bias":[[8,10]]
+  },
+  "output":
+  {
+    "Radar2DCNN::nndct_input_0":[[8,6]],
+    "Radar2DCNN::nndct_relu_2":[[8,6]],
+    "Radar2DCNN::nndct_maxpool_3":[[8,6]],
+    "Radar2DCNN::nndct_relu_5":[[8,6]],
+    "Radar2DCNN::nndct_maxpool_6":[[8,6]],
+    "Radar2DCNN::nndct_relu_8":[[8,5]],
+    "Radar2DCNN::nndct_maxpool_9":[[8,5]],
+    "Radar2DCNN::nndct_relu_11":[[8,5]],
+    "Radar2DCNN::nndct_avgpool_12":[[8,7]],
+    "Radar2DCNN::nndct_conv2d_13":[[8,4]]
+  },
+  "input":
+  {
+
+  },
+  "fast_finetuned":false,
+  "bias_corrected":true,
+  "version":"3.5.0+60df3f1+torch1.13.1",
+  "graph_md5":"d98fc58552cc22586037a747b51a5acf"
+}

@@ -1,0 +1,14 @@
+{
+  "window_level_stride32": {
+    "accuracy": 0.9693486590038314,
+    "macro_f1": 0.9253629175026555,
+    "weighted_f1": 0.969820204182499,
+    "notes": "Engineering/MVP result; overlapping recording windows may cross splits"
+  },
+  "record_wise_row_modulo": {
+    "accuracy": 0.437410071942446,
+    "macro_f1": 0.5279490643598606,
+    "weighted_f1": 0.5157789534104616,
+    "notes": "Row-disjoint validation result; row 0 train, row 1 val, row 2 test"
+  }
+}

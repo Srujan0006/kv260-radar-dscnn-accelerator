@@ -1,0 +1,14 @@
+{
+  "onnx_checker": "passed",
+  "pytorch_onnx_max_abs_error": 2.6226043701171875e-06,
+  "input_shape": [
+    1,
+    1,
+    100,
+    100
+  ],
+  "output_shape": [
+    1,
+    4
+  ]
+}

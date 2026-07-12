@@ -1,0 +1,45 @@
+{
+  "validation_level": "window predictions from held-out recording rows",
+  "split_strategy": "row_index_modulo_3",
+  "recording_row_overlap": 0,
+  "test_windows": 695,
+  "test_source_rows": 21,
+  "test_distribution": {
+    "Drone": 580,
+    "Bird": 56,
+    "Human": 55,
+    "CornerReflector": 4
+  },
+  "test_loss": 1.3002277558500117,
+  "test_accuracy": 0.437410071942446,
+  "macro_precision": 0.5865966114555603,
+  "macro_recall": 0.6349473802060008,
+  "macro_f1": 0.5279490643598606,
+  "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     0.8810    0.4086    0.5583       580\n           Bird     0.1199    0.7857    0.2080        56\n          Human     0.3455    0.3455    0.3455        55\nCornerReflector     1.0000    1.0000    1.0000         4\n\n       accuracy                         0.4374       695\n      macro avg     0.5866    0.6349    0.5279       695\n   weighted avg     0.7780    0.4374    0.5158       695\n",
+  "confusion_matrix": [
+    [
+      237,
+      309,
+      34,
+      0
+    ],
+    [
+      10,
+      44,
+      2,
+      0
+    ],
+    [
+      22,
+      14,
+      19,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      4
+    ]
+  ]
+}

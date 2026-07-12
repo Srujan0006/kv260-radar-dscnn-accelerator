@@ -1,0 +1,71 @@
+{
+  "source": "data/real/radar_iq.npy",
+  "group_key": "source_row_index",
+  "source_rows_total": 130,
+  "source_rows_eligible": 59,
+  "source_rows_too_short": 71,
+  "window": 256,
+  "stride": 32,
+  "range_bins": 5,
+  "image_size": 100,
+  "range_mode": "topk_energy_mean",
+  "top_k": 3,
+  "splits": {
+    "train": {
+      "windows": 1115,
+      "source_rows_with_windows": 41,
+      "class_distribution": {
+        "Drone": 982,
+        "Bird": 61,
+        "Human": 64,
+        "CornerReflector": 8
+      },
+      "recording_class_distribution": {
+        "Drone": 27,
+        "Bird": 4,
+        "Human": 6,
+        "CornerReflector": 4
+      }
+    },
+    "val": {
+      "windows": 226,
+      "source_rows_with_windows": 9,
+      "class_distribution": {
+        "Drone": 155,
+        "Bird": 21,
+        "Human": 48,
+        "CornerReflector": 2
+      },
+      "recording_class_distribution": {
+        "Drone": 5,
+        "Bird": 1,
+        "Human": 2,
+        "CornerReflector": 1
+      }
+    },
+    "test": {
+      "windows": 401,
+      "source_rows_with_windows": 9,
+      "class_distribution": {
+        "Drone": 392,
+        "Bird": 2,
+        "Human": 5,
+        "CornerReflector": 2
+      },
+      "recording_class_distribution": {
+        "Drone": 6,
+        "Bird": 1,
+        "Human": 1,
+        "CornerReflector": 1
+      }
+    }
+  },
+  "strategy": "grouped_stratified_recording_rows",
+  "ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "seed": 42,
+  "recording_row_overlap": 0
+}

@@ -1,0 +1,458 @@
+{
+  "mean_logits": {
+    "aggregation": "Mean logits",
+    "source_rows": 11,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_precision": 1.0,
+    "weighted_recall": 1.0,
+    "weighted_f1": 1.0,
+    "true_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "predicted_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "per_class": {
+      "Drone": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7
+      },
+      "Bird": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "Human": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "CornerReflector": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     1.0000    1.0000    1.0000         7\n           Bird     1.0000    1.0000    1.0000         1\n          Human     1.0000    1.0000    1.0000         2\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         1.0000        11\n      macro avg     1.0000    1.0000    1.0000        11\n   weighted avg     1.0000    1.0000    1.0000        11\n",
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "mean_probability": {
+    "aggregation": "Mean softmax probability",
+    "source_rows": 11,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_precision": 1.0,
+    "weighted_recall": 1.0,
+    "weighted_f1": 1.0,
+    "true_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "predicted_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "per_class": {
+      "Drone": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7
+      },
+      "Bird": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "Human": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "CornerReflector": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     1.0000    1.0000    1.0000         7\n           Bird     1.0000    1.0000    1.0000         1\n          Human     1.0000    1.0000    1.0000         2\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         1.0000        11\n      macro avg     1.0000    1.0000    1.0000        11\n   weighted avg     1.0000    1.0000    1.0000        11\n",
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "majority_vote": {
+    "aggregation": "Majority vote",
+    "source_rows": 11,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_precision": 1.0,
+    "weighted_recall": 1.0,
+    "weighted_f1": 1.0,
+    "true_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "predicted_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "per_class": {
+      "Drone": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7
+      },
+      "Bird": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "Human": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "CornerReflector": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     1.0000    1.0000    1.0000         7\n           Bird     1.0000    1.0000    1.0000         1\n          Human     1.0000    1.0000    1.0000         2\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         1.0000        11\n      macro avg     1.0000    1.0000    1.0000        11\n   weighted avg     1.0000    1.0000    1.0000        11\n",
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "median_probability": {
+    "aggregation": "Median probability",
+    "source_rows": 11,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_precision": 1.0,
+    "weighted_recall": 1.0,
+    "weighted_f1": 1.0,
+    "true_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "predicted_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "per_class": {
+      "Drone": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7
+      },
+      "Bird": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "Human": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "CornerReflector": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     1.0000    1.0000    1.0000         7\n           Bird     1.0000    1.0000    1.0000         1\n          Human     1.0000    1.0000    1.0000         2\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         1.0000        11\n      macro avg     1.0000    1.0000    1.0000        11\n   weighted avg     1.0000    1.0000    1.0000        11\n",
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "max_class_confidence": {
+    "aggregation": "Max class confidence",
+    "source_rows": 11,
+    "accuracy": 0.9090909090909091,
+    "macro_precision": 0.9166666666666666,
+    "macro_recall": 0.9642857142857143,
+    "macro_f1": 0.9307692307692308,
+    "weighted_precision": 0.9393939393939394,
+    "weighted_recall": 0.9090909090909091,
+    "weighted_f1": 0.9146853146853147,
+    "true_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "predicted_distribution": {
+      "Drone": 6,
+      "Bird": 1,
+      "Human": 3,
+      "CornerReflector": 1
+    },
+    "per_class": {
+      "Drone": {
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.9230769230769231,
+        "support": 7
+      },
+      "Bird": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "Human": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1": 0.8,
+        "support": 2
+      },
+      "CornerReflector": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     1.0000    0.8571    0.9231         7\n           Bird     1.0000    1.0000    1.0000         1\n          Human     0.6667    1.0000    0.8000         2\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         0.9091        11\n      macro avg     0.9167    0.9643    0.9308        11\n   weighted avg     0.9394    0.9091    0.9147        11\n",
+    "confusion_matrix": [
+      [
+        6,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "top_confidence_mean": {
+    "aggregation": "Top-30% confidence average",
+    "source_rows": 11,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_precision": 1.0,
+    "weighted_recall": 1.0,
+    "weighted_f1": 1.0,
+    "true_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "predicted_distribution": {
+      "Drone": 7,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "per_class": {
+      "Drone": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7
+      },
+      "Bird": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "Human": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "CornerReflector": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     1.0000    1.0000    1.0000         7\n           Bird     1.0000    1.0000    1.0000         1\n          Human     1.0000    1.0000    1.0000         2\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         1.0000        11\n      macro avg     1.0000    1.0000    1.0000        11\n   weighted avg     1.0000    1.0000    1.0000        11\n",
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  }
+}

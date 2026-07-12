@@ -1,0 +1,59 @@
+{
+  "strategy": "nested_stratified_group_kfold",
+  "outer_fold": 3,
+  "outer_folds": 5,
+  "inner_folds": 4,
+  "seed": 42,
+  "group_key": "source_row_index",
+  "recording_row_overlap": 0,
+  "splits": {
+    "train": {
+      "windows": 1059,
+      "source_rows": 35,
+      "window_class_distribution": {
+        "Drone": 923,
+        "Bird": 45,
+        "Human": 83,
+        "CornerReflector": 8
+      },
+      "recording_class_distribution": {
+        "Drone": 22,
+        "Bird": 3,
+        "Human": 6,
+        "CornerReflector": 4
+      }
+    },
+    "val": {
+      "windows": 229,
+      "source_rows": 12,
+      "window_class_distribution": {
+        "Drone": 193,
+        "Bird": 24,
+        "Human": 10,
+        "CornerReflector": 2
+      },
+      "recording_class_distribution": {
+        "Drone": 8,
+        "Bird": 1,
+        "Human": 2,
+        "CornerReflector": 1
+      }
+    },
+    "test": {
+      "windows": 454,
+      "source_rows": 12,
+      "window_class_distribution": {
+        "Drone": 413,
+        "Bird": 15,
+        "Human": 24,
+        "CornerReflector": 2
+      },
+      "recording_class_distribution": {
+        "Drone": 8,
+        "Bird": 2,
+        "Human": 1,
+        "CornerReflector": 1
+      }
+    }
+  }
+}

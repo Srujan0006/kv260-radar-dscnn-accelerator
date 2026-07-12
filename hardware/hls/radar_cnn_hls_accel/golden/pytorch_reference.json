@@ -1,0 +1,114 @@
+[
+  {
+    "cache_index": 28,
+    "label": 0,
+    "label_name": "Drone",
+    "sample_id": "row013:D2:896:1152",
+    "prediction": 2,
+    "prediction_name": "Human",
+    "logits": [
+      4.370753765106201,
+      -8.660334587097168,
+      4.622743129730225,
+      -8.66925048828125
+    ]
+  },
+  {
+    "cache_index": 93,
+    "label": 0,
+    "label_name": "Drone",
+    "sample_id": "row019:D3:800:1056",
+    "prediction": 0,
+    "prediction_name": "Drone",
+    "logits": [
+      4.141717910766602,
+      -2.42065167427063,
+      -0.533923864364624,
+      -7.0086493492126465
+    ]
+  },
+  {
+    "cache_index": 394,
+    "label": 2,
+    "label_name": "Human",
+    "sample_id": "row054:human_run:64:320",
+    "prediction": 2,
+    "prediction_name": "Human",
+    "logits": [
+      3.191180467605591,
+      -5.7564873695373535,
+      3.5792834758758545,
+      -7.437251567840576
+    ]
+  },
+  {
+    "cache_index": 396,
+    "label": 2,
+    "label_name": "Human",
+    "sample_id": "row054:human_run:128:384",
+    "prediction": 2,
+    "prediction_name": "Human",
+    "logits": [
+      2.1073999404907227,
+      -5.570383548736572,
+      2.992844581604004,
+      -4.981459140777588
+    ]
+  },
+  {
+    "cache_index": 397,
+    "label": 1,
+    "label_name": "Bird",
+    "sample_id": "row078:seagull:0:256",
+    "prediction": 1,
+    "prediction_name": "Bird",
+    "logits": [
+      3.24375057220459,
+      4.042804718017578,
+      -5.463905334472656,
+      -6.466814994812012
+    ]
+  },
+  {
+    "cache_index": 398,
+    "label": 1,
+    "label_name": "Bird",
+    "sample_id": "row078:seagull:32:288",
+    "prediction": 0,
+    "prediction_name": "Drone",
+    "logits": [
+      2.4262402057647705,
+      1.6143304109573364,
+      -2.843752145767212,
+      -5.473601341247559
+    ]
+  },
+  {
+    "cache_index": 399,
+    "label": 3,
+    "label_name": "CornerReflector",
+    "sample_id": "row124:CR:0:256",
+    "prediction": 3,
+    "prediction_name": "CornerReflector",
+    "logits": [
+      -0.5854244828224182,
+      -3.548055410385132,
+      -1.7147353887557983,
+      1.8500291109085083
+    ]
+  },
+  {
+    "cache_index": 400,
+    "label": 3,
+    "label_name": "CornerReflector",
+    "sample_id": "row124:CR:32:288",
+    "prediction": 3,
+    "prediction_name": "CornerReflector",
+    "logits": [
+      -0.7721598744392395,
+      -3.7091903686523438,
+      -1.7364174127578735,
+      2.2479019165039062
+    ]
+  }
+]

@@ -1,0 +1,2 @@
+be52c3935585227f9f38334450f32c06a83402916531a1f245713e271e86044c  hardware/hls/radar_cnn_hls_accel/v1_frame_buffered/weights.h
+c08702b75ac79d91bbfe9db4c465e15b88be48770bcd0d09f12db677248e92cd  hardware/hls/radar_cnn_hls_accel/v2_streaming/weights.h

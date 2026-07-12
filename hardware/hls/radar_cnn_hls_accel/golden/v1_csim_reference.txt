@@ -1,0 +1,10 @@
+V1 fixed-point C-simulation was previously reported as passing on eight real samples.
+The original stdout with exact logits was not retained in the repository.
+
+STATUS: RECAPTURE_REQUIRED
+COMMAND:
+  cd hardware/hls/radar_cnn_hls_accel/v1_frame_buffered
+  RADAR_CNN_HLS_TESTBENCH=tb_real_samples.cpp RADAR_CNN_HLS_MODE=csim vitis_hls -f run_hls.tcl | tee ../golden/v1_csim_reference.txt
+
+Do not replace this notice with inferred or host-float values. Exact fixed-point
+stdout must be captured from Vitis HLS before this golden artifact is considered complete.

@@ -1,0 +1,16 @@
+# Loose lower bounds only. NOTE (2026-07-11): the exact versions used to
+# train the deployed checkpoint (radar_dscnn2d_topk3_capped8_best.pth)
+# were never recorded, and the .venv in this repo is an empty bootstrap
+# (pip/setuptools only). To make results reproducible, run this in the
+# REAL training environment and commit the result:
+#     pip freeze > requirements_pinned.txt
+numpy>=1.23
+scipy>=1.10
+matplotlib>=3.7
+scikit-learn>=1.2
+PyYAML>=6.0
+tqdm>=4.64
+torch>=2.0
+torchvision>=0.15
+onnx>=1.14
+onnxruntime>=1.16

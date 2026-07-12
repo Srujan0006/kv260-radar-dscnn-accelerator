@@ -1,0 +1,156 @@
+{
+  "validation_level": "window predictions from held-out recording rows",
+  "split_strategy": "nested_stratified_group_kfold",
+  "recording_row_overlap": 0,
+  "test_windows": 272,
+  "test_source_rows": 12,
+  "test_distribution": {
+    "Drone": 221,
+    "Bird": 21,
+    "Human": 28,
+    "CornerReflector": 2
+  },
+  "predicted_distribution": {
+    "Drone": 222,
+    "Bird": 21,
+    "Human": 27,
+    "CornerReflector": 2
+  },
+  "test_loss": 0.5247201604975594,
+  "test_accuracy": 0.8492647058823529,
+  "macro_precision": 0.7567746317746318,
+  "macro_recall": 0.7511850894203835,
+  "macro_f1": 0.753918579539347,
+  "weighted_precision": 0.8486593210857916,
+  "weighted_recall": 0.8492647058823529,
+  "weighted_f1": 0.8489334991127582,
+  "per_class": {
+    "Drone": {
+      "precision": 0.9054054054054054,
+      "recall": 0.9095022624434389,
+      "f1": 0.90744920993228,
+      "support": 221
+    },
+    "Bird": {
+      "precision": 0.38095238095238093,
+      "recall": 0.38095238095238093,
+      "f1": 0.38095238095238093,
+      "support": 21
+    },
+    "Human": {
+      "precision": 0.7407407407407407,
+      "recall": 0.7142857142857143,
+      "f1": 0.7272727272727273,
+      "support": 28
+    },
+    "CornerReflector": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+    }
+  },
+  "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     0.9054    0.9095    0.9074       221\n           Bird     0.3810    0.3810    0.3810        21\n          Human     0.7407    0.7143    0.7273        28\nCornerReflector     1.0000    1.0000    1.0000         2\n\n       accuracy                         0.8493       272\n      macro avg     0.7568    0.7512    0.7539       272\n   weighted avg     0.8487    0.8493    0.8489       272\n",
+  "confusion_matrix": [
+    [
+      201,
+      13,
+      7,
+      0
+    ],
+    [
+      13,
+      8,
+      0,
+      0
+    ],
+    [
+      8,
+      0,
+      20,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2
+    ]
+  ],
+  "recording_level": {
+    "aggregation": "mean_window_logits_per_source_row",
+    "source_rows": 12,
+    "accuracy": 0.9166666666666666,
+    "macro_precision": 0.7222222222222222,
+    "macro_recall": 0.75,
+    "macro_f1": 0.7352941176470589,
+    "weighted_precision": 0.8425925925925926,
+    "weighted_recall": 0.9166666666666666,
+    "weighted_f1": 0.8774509803921569,
+    "true_distribution": {
+      "Drone": 8,
+      "Bird": 1,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "predicted_distribution": {
+      "Drone": 9,
+      "Bird": 0,
+      "Human": 2,
+      "CornerReflector": 1
+    },
+    "per_class": {
+      "Drone": {
+        "precision": 0.8888888888888888,
+        "recall": 1.0,
+        "f1": 0.9411764705882353,
+        "support": 8
+      },
+      "Bird": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 1
+      },
+      "Human": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "CornerReflector": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     0.8889    1.0000    0.9412         8\n           Bird     0.0000    0.0000    0.0000         1\n          Human     1.0000    1.0000    1.0000         2\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         0.9167        12\n      macro avg     0.7222    0.7500    0.7353        12\n   weighted avg     0.8426    0.9167    0.8775        12\n",
+    "confusion_matrix": [
+      [
+        8,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  }
+}

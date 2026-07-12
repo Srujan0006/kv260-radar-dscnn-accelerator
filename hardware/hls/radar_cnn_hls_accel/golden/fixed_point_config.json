@@ -1,0 +1,9 @@
+{
+  "data_t": "ap_fixed<16,6,AP_TRN,AP_WRAP>",
+  "acc_t": "ap_fixed<32,12,AP_TRN,AP_WRAP>",
+  "fractional_bits": {"data_t": 10, "acc_t": 20},
+  "relu_order": "accumulate -> bias already initializes accumulator -> cast data_t -> ReLU",
+  "padding": "3x3 same convolution with zero outside the image",
+  "pooling": "2x2 maximum, stride 2, no padding; 25 becomes 12",
+  "status": "frozen validated V1 behavior"
+}

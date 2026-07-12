@@ -1,0 +1,97 @@
+  **** HLS Build v2025.1 6135595
+Sourcing Tcl script 'C:/Users/LENOVO/Downloads/KV260_Radar_2D_CNN_MVP/KV260_Radar_2D_CNN_MVP/hardware/hls/radar_cnn_hls_accel/v2_streaming_v2b/v2_streaming/run_hls_full.tcl'
+INFO: [HLS 200-1510] Running: open_project radar_cnn_stream_prj 
+WARNING: [HLS 200-2182] The 'radar_cnn_stream_prj' project will not automatically appear within Vitis IDE workspaces and is meant only for TCL batch use.  Please use open_component instead of open_project/open_solution to generate Vitis IDE compatible component files and directory structure.
+Resolution: For help on HLS 200-2182 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2025.1%20English&url=ug1448-hls-guidance&resourceid=200-2182.html
+INFO: [HLS 200-10] Creating and opening solution 'C:/Users/LENOVO/Downloads/KV260_Radar_2D_CNN_MVP/KV260_Radar_2D_CNN_MVP/hardware/hls/radar_cnn_hls_accel/v2_streaming_v2b/v2_streaming/radar_cnn_stream_prj'.
+INFO: [HLS 200-1510] Running: source ../../config/hardware_config.tcl
+INFO: [HLS 200-1510] Running: set_top radar_cnn_stream_full 
+INFO: [HLS 200-1510] Running: add_files radar_cnn_stream.cpp 
+INFO: [HLS 200-10] Adding design file 'radar_cnn_stream.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files radar_cnn_stream.h 
+INFO: [HLS 200-10] Adding design file 'radar_cnn_stream.h' to the project
+INFO: [HLS 200-1510] Running: add_files stream_types.h 
+INFO: [HLS 200-10] Adding design file 'stream_types.h' to the project
+INFO: [HLS 200-1510] Running: add_files stream_layers.h 
+INFO: [HLS 200-10] Adding design file 'stream_layers.h' to the project
+INFO: [HLS 200-1510] Running: add_files hls_stream_compat.h 
+INFO: [HLS 200-10] Adding design file 'hls_stream_compat.h' to the project
+INFO: [HLS 200-1510] Running: add_files weights.h 
+INFO: [HLS 200-10] Adding design file 'weights.h' to the project
+INFO: [HLS 200-1510] Running: add_files -tb tb_stream.cpp 
+INFO: [HLS 200-10] Adding test bench file 'tb_stream.cpp' to the project
+INFO: [HLS 200-1510] Running: open_solution solution3_full -flow_target vivado 
+INFO: [HLS 200-10] Creating and opening solution 'C:/Users/LENOVO/Downloads/KV260_Radar_2D_CNN_MVP/KV260_Radar_2D_CNN_MVP/hardware/hls/radar_cnn_hls_accel/v2_streaming_v2b/v2_streaming/radar_cnn_stream_prj/solution3_full'.
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2025.1%20English&url=ug1448-hls-guidance&resourceid=200-1505.html
+INFO: [HLS 200-1510] Running: set_part xck26-sfvc784-2LV-c 
+INFO: [HLS 200-1611] Setting target device to 'xck26-sfvc784-2LV-c'
+INFO: [HLS 200-1510] Running: create_clock -period 6.667 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 6.667ns.
+INFO: [HLS 200-1510] Running: csim_design 
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch CLANG as the compiler.
+INFO: [HLS 200-2036] Building debug C Simulation binaries
+   Compiling ../../../../tb_stream.cpp in debug mode
+   Compiling ../../../../radar_cnn_stream.cpp in debug mode
+   Generating csim.exe
+In file included from ../../../../tb_stream.cpp:19:
+In file included from ../../../../radar_cnn_stream.h:8:
+In file included from C:/Xilinx/2025.1/Vitis/include/ap_fixed.h:9:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_common.h:677:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_private.h:68:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_half.h:26:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/hls_half_fpo.h:19:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_fpo.h:140:
+In file included from C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:150:
+C:/Xilinx/2025.1/Vitis/include/gmp.h:58:9: warning: '__GMP_LIBGMP_DLL' macro redefined [-Wmacro-redefined]
+#define __GMP_LIBGMP_DLL  0
+        ^
+C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:142:9: note: previous definition is here
+#define __GMP_LIBGMP_DLL 1
+        ^
+1 warning generated.
+In file included from ../../../../radar_cnn_stream.cpp:1:
+In file included from ../../../../radar_cnn_stream.h:8:
+In file included from C:/Xilinx/2025.1/Vitis/include/ap_fixed.h:9:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_common.h:677:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_private.h:68:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_half.h:26:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/hls_half_fpo.h:19:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_fpo.h:140:
+In file included from C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:150:
+C:/Xilinx/2025.1/Vitis/include/gmp.h:58:9: warning: '__GMP_LIBGMP_DLL' macro redefined [-Wmacro-redefined]
+#define __GMP_LIBGMP_DLL  0
+        ^
+C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:142:9: note: previous definition is here
+#define __GMP_LIBGMP_DLL 1
+        ^
+1 warning generated.
+KERNEL_STEM MAX_ERROR 0 MISMATCHES 0
+KERNEL_DW1 MAX_ERROR 0 MISMATCHES 0
+STAGE_DW1 MAX_ERROR 0 MISMATCHES 0
+STAGE_PW1 MAX_ERROR 0 MISMATCHES 0
+STAGE_POOL1 MAX_ERROR 0 MISMATCHES 0
+STAGE_DW2 MAX_ERROR 0 MISMATCHES 0
+STAGE_PW2 MAX_ERROR 0 MISMATCHES 0
+STAGE_POOL2 MAX_ERROR 0 MISMATCHES 0
+STAGE_DW3 MAX_ERROR 0 MISMATCHES 0
+STAGE_PW3 MAX_ERROR 0 MISMATCHES 0
+STAGE_POOL3 MAX_ERROR 0 MISMATCHES 0
+STAGE_DW4 MAX_ERROR 0 MISMATCHES 0
+STAGE_PW4 MAX_ERROR 0 MISMATCHES 0
+STAGE_GAP MAX_ERROR 0 MISMATCHES 0
+STAGE_CLS MAX_ERROR 0 MISMATCHES 0
+LOGIT 0 -2.63965 (ref -2.63965)
+LOGIT 1 4.4502 (ref 4.4502)
+LOGIT 2 -8.06543 (ref -8.06543)
+LOGIT 3 0.867188 (ref 0.867188)
+KERNEL_FULL MAX_ERROR 0 MISMATCHES 0
+ALL CHECKS PASSED (failures=0)
+INFO [HLS SIM]: The maximum depth reached by any hls::stream() instance in the design is 10000
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-2161] Finished Command csim_design Elapsed time: 00:03:49; Allocated memory: 0.973 MB.
+INFO: [HLS 200-112] Total CPU user time: 1 seconds. Total CPU system time: 2 seconds. Total elapsed time: 238.228 seconds; peak allocated memory: 135.750 MB.
+INFO: [vitis-run 60-791] Total elapsed time: 0h 4m 5s
+INFO: [vitis-run 60-1662] Stopping dispatch session having empty uuid.

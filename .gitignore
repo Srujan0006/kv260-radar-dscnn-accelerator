@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+*.exe
+.pytest_cache/
+outputs/*.npz
+outputs/**/*.pth
+outputs/**/*.onnx
+outputs/**/*.xmodel
+outputs/**/*.npz
+data/**/*.npz
+data/**/*.npy
+hardware/**/solution*/
+hardware/**/.Xil/
+hardware/**/vivado_project/
+hardware/**/radar_cnn_*_prj/

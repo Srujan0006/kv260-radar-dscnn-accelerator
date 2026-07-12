@@ -1,0 +1,7 @@
+0 subgraph_Radar2DCNN__input_0                                      USER 1
+1 subgraph_Radar2DCNN__Radar2DCNN_Conv2d_classifier_conv__ret_27   DPU  22
+2 subgraph_Radar2DCNN__Radar2DCNN_ret_fix_                         CPU  1
+
+Summary: USER -> DPU -> CPU
+Target: DPUCZDX8G_ISA1_B4096
+Compiled model: outputs/real/compiled_kv260_dpu/radar_2dcnn.xmodel

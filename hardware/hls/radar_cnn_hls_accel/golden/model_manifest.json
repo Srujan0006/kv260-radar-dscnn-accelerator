@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "model": "radar_dscnn2d",
+  "preprocessing": "topk_energy_mean",
+  "top_k": 3,
+  "image_size": 100,
+  "classes": ["Drone", "Bird", "Human", "CornerReflector"],
+  "weight_strategy": "capped",
+  "maximum_class_weight": 8.0,
+  "selected_checkpoint": "outputs/final_model/radar_dscnn2d_topk3_capped8_best.pth",
+  "checkpoint_selection_metric": "validation_macro_f1",
+  "test_metrics_used_for_selection": false,
+  "fixed_point_rounding": "AP_TRN",
+  "fixed_point_overflow": "AP_WRAP",
+  "note": "AP_TRN/AP_WRAP records the validated V1 source defaults. AP_RND/AP_SAT is a future precision migration requiring a new golden run."
+}

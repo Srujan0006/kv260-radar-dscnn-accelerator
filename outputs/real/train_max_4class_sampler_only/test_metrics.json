@@ -1,0 +1,31 @@
+{
+  "test_loss": 0.5906500279903412,
+  "test_accuracy": 0.8985507246376812,
+  "classification_report": "                 precision    recall  f1-score   support\n\n          Drone     0.9333    0.9492    0.9412        59\n           Bird     0.0000    0.0000    0.0000         4\n          Human     0.6250    1.0000    0.7692         5\nCornerReflector     1.0000    1.0000    1.0000         1\n\n       accuracy                         0.8986        69\n      macro avg     0.6396    0.7373    0.6776        69\n   weighted avg     0.8579    0.8986    0.8750        69\n",
+  "confusion_matrix": [
+    [
+      56,
+      0,
+      3,
+      0
+    ],
+    [
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "sample_id": "row047:human_walk:0:256",
+  "label": 2,
+  "pytorch_logits": [
+    0.7590455412864685,
+    -0.662531316280365,
+    0.16901345551013947,
+    -0.4172603189945221
+  ],
+  "hls_float_logits": [
+    0.7590458393096924,
+    -0.6625314950942993,
+    0.16901344060897827,
+    -0.41726067662239075
+  ],
+  "max_abs_error": 3.5762786865234375e-07,
+  "tolerance": 0.0002,
+  "status": "passed",
+  "scope": "host-float equivalence; not fixed-point Vitis C simulation"
+}

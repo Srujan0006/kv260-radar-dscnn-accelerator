@@ -1,0 +1,20 @@
+{
+  "sample_id": "row095:black-headed gull:0:256",
+  "label": 1,
+  "pytorch_logits": [
+    0.6387802362442017,
+    -0.5606797933578491,
+    -0.3866432309150696,
+    -0.2671928107738495
+  ],
+  "hls_float_logits": [
+    0.638780951499939,
+    -0.5606806874275208,
+    -0.3866426944732666,
+    -0.26719266176223755
+  ],
+  "max_abs_error": 8.940696716308594e-07,
+  "tolerance": 0.0002,
+  "status": "passed",
+  "scope": "host-float equivalence; not fixed-point Vitis C simulation"
+}
