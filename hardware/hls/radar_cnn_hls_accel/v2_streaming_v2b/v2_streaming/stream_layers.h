@@ -175,12 +175,17 @@ void depthwise_conv_stream(
 
 // Streaming 1x1 (pointwise) convolution: one Pixel<CIN> token in, one
 // Pixel<COUT> token out, no feature-map storage of any kind. The weight
-// matrix is walked in UF_OUT x UF_IN tiles by a single flat pipelined
-// loop ((COUT/UF_OUT) * (CIN/UF_IN) iterations per pixel at II=1, using
-// UF_OUT*UF_IN multipliers). Accumulation is chained from the bias in
-// ascending input-channel order, so the result is numerically identical
-// to the V1 linear loop (bit-exact in ap_fixed, same rounding order in
-// float).
+// matrix is walked in UF_OUT x UF_IN tiles by ONE flat pipelined loop of
+// TOKENS * (COUT/UF_OUT) * (CIN/UF_IN) iterations at II=1 (UF_OUT*UF_IN
+// multipliers); the token read/write are predicated on the first/last
+// tile INSIDE the flat loop, the same already-perfect nest the depthwise
+// stages use. Vitis 2025.1 derived this form itself by merging the old
+// TOKEN { MAC_FLAT } nest ("converted into perfectly nested loops"), but
+// 2022.2 cannot: it outlines MAC_FLAT into a per-token sub-pipeline and
+// the II collapses to 10-65, so the source is written pre-flattened.
+// Accumulation is chained from the bias in ascending input-channel
+// order, so the result is numerically identical to the V1 linear loop
+// (bit-exact in ap_fixed, same rounding order in float).
 template<int CIN, int COUT, int TOKENS, int UF_IN, int UF_OUT, bool RELU>
 void pointwise_conv_stream(
     hls::stream<Pixel<CIN> > &in_pixels,
@@ -209,48 +214,57 @@ void pointwise_conv_stream(
     int read_count = 0;
     int write_count = 0;
 
-    TOKEN: for (int t = 0; t < TOKENS; ++t) {
-        Pixel<CIN> in_vec = in_pixels.read();
-        ++read_count;
-        data_t in_local[CIN];
+    // Persist across FLAT iterations: the input token loaded at the
+    // first tile of each token and the output assembled tile by tile.
+    // Every element is (re)written before it is read within a token, so
+    // hoisting them out of the loop does not change semantics.
+    data_t in_local[CIN];
 #pragma HLS ARRAY_PARTITION variable=in_local complete dim=1
-        LOAD: for (int ic = 0; ic < CIN; ++ic) {
-#pragma HLS UNROLL
-            in_local[ic] = in_vec.channel[ic];
-        }
-
-        Pixel<COUT> out_vec;
-        acc_t acc[UF_OUT];
+    Pixel<COUT> out_vec;
+    acc_t acc[UF_OUT];
 #pragma HLS ARRAY_PARTITION variable=acc complete dim=1
 
-        int ob = 0;
-        int ib = 0;
-        MAC_FLAT: for (int i = 0; i < OB_COUNT * IB_COUNT; ++i) {
+    int ob = 0;
+    int ib = 0;
+    MAC_FLAT: for (int i = 0; i < TOKENS * OB_COUNT * IB_COUNT; ++i) {
 #pragma HLS PIPELINE II=1
-            OUT_CH: for (int uo = 0; uo < UF_OUT; ++uo) {
+        if (ob == 0 && ib == 0) {
+            Pixel<CIN> in_vec = in_pixels.read();
+            ++read_count;
+            LOAD: for (int ic = 0; ic < CIN; ++ic) {
 #pragma HLS UNROLL
-                const int oc = ob * UF_OUT + uo;
-                acc_t sum = (ib == 0) ? (acc_t)biases[oc] : acc[uo];
-                IN_CH: for (int ui = 0; ui < UF_IN; ++ui) {
-#pragma HLS UNROLL
-                    const int ic = ib * UF_IN + ui;
-                    sum += (acc_t)in_local[ic] * (acc_t)weights[oc][ic];
-                }
-                acc[uo] = sum;
-                if (ib == IB_COUNT - 1) {
-                    out_vec.channel[oc] =
-                        RELU ? relu_stream((data_t)sum) : (data_t)sum;
-                }
-            }
-            if (ib == IB_COUNT - 1) {
-                ib = 0;
-                ++ob;
-            } else {
-                ++ib;
+                in_local[ic] = in_vec.channel[ic];
             }
         }
-        out_pixels.write(out_vec);
-        ++write_count;
+
+        OUT_CH: for (int uo = 0; uo < UF_OUT; ++uo) {
+#pragma HLS UNROLL
+            const int oc = ob * UF_OUT + uo;
+            acc_t sum = (ib == 0) ? (acc_t)biases[oc] : acc[uo];
+            IN_CH: for (int ui = 0; ui < UF_IN; ++ui) {
+#pragma HLS UNROLL
+                const int ic = ib * UF_IN + ui;
+                sum += (acc_t)in_local[ic] * (acc_t)weights[oc][ic];
+            }
+            acc[uo] = sum;
+            if (ib == IB_COUNT - 1) {
+                out_vec.channel[oc] =
+                    RELU ? relu_stream((data_t)sum) : (data_t)sum;
+            }
+        }
+
+        if (ib == IB_COUNT - 1) {
+            ib = 0;
+            if (ob == OB_COUNT - 1) {
+                out_pixels.write(out_vec);
+                ++write_count;
+                ob = 0;
+            } else {
+                ++ob;
+            }
+        } else {
+            ++ib;
+        }
     }
 #ifndef __SYNTHESIS__
     assert(read_count == TOKENS);
@@ -324,7 +338,10 @@ void maxpool_stream(
 // pixel tokens, then emits ONE Pixel<C> holding the per-channel mean.
 // Matches V1 exactly: accumulate in acc_t in arrival (row-major) order,
 // divide by TOKENS, then cast to data_t. UF channels accumulate in
-// parallel per cycle.
+// parallel per cycle. Like the conv stages, the accumulate loop is
+// written as ONE flat pipelined loop (TOKENS * C/UF iterations, II=1)
+// with the token read predicated on the first channel block -- 2022.2
+// cannot merge the old TOKEN { ACC_BLOCKS } nest by itself.
 template<int C, int TOKENS, int UF>
 void gap_stream(
     hls::stream<Pixel<C> > &in_pixels,
@@ -332,22 +349,26 @@ void gap_stream(
 ) {
 #pragma HLS INLINE off
     static_assert(C % UF == 0, "UF must divide C");
+    constexpr int CB_COUNT = C / UF;
     acc_t acc[C];
 #pragma HLS ARRAY_PARTITION variable=acc complete dim=1
     INIT: for (int c = 0; c < C; ++c) {
 #pragma HLS UNROLL
         acc[c] = (acc_t)0;
     }
-    TOKEN: for (int t = 0; t < TOKENS; ++t) {
-        Pixel<C> pix = in_pixels.read();
-        ACC_BLOCKS: for (int cb = 0; cb < C / UF; ++cb) {
+    Pixel<C> pix;
+    int cb = 0;
+    ACC_BLOCKS: for (int i = 0; i < TOKENS * CB_COUNT; ++i) {
 #pragma HLS PIPELINE II=1
-            ACC_CH: for (int u = 0; u < UF; ++u) {
-#pragma HLS UNROLL
-                const int c = cb * UF + u;
-                acc[c] += (acc_t)pix.channel[c];
-            }
+        if (cb == 0) {
+            pix = in_pixels.read();
         }
+        ACC_CH: for (int u = 0; u < UF; ++u) {
+#pragma HLS UNROLL
+            const int c = cb * UF + u;
+            acc[c] += (acc_t)pix.channel[c];
+        }
+        cb = (cb == CB_COUNT - 1) ? 0 : cb + 1;
     }
     Pixel<C> out_pix;
     DIVIDE: for (int c = 0; c < C; ++c) {

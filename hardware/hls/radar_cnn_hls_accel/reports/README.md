@@ -3,6 +3,21 @@
 This folder stores fixed-point HLS validation artifacts generated outside the
 source tree of the accelerator.
 
+## Verified evidence on the full streaming kernel
+
+`v2c_full_vitis2022_2/` holds the Vitis HLS 2022.2 reports for
+`radar_cnn_stream_full` (solution3_full):
+
+| File | Content |
+|---|---|
+| `csynth.rpt` | Synthesis: 80,056-cycle estimate, per-stage latency/resource breakdown |
+| `cosim.rpt` | C/RTL co-simulation: **PASS**, measured 112,020 cycles |
+| `export_impl.rpt` | Vivado place & route of the standalone IP: 95,735 LUT, 599 DSP, 115 BRAM, achieved 7.021 ns |
+
+The full-system implementation evidence (block design with the Zynq PS,
+timing met at ~97 MHz) lives in the Vivado project's `impl_1` run, outside
+this repo.
+
 Recommended workflow:
 
 1. Prepare real spectrogram samples and PyTorch reference logits:

@@ -9,13 +9,14 @@ The validated frame-buffered implementation remains isolated in
 |---|---|---|---|---|
 | V2A | `radar_cnn_stream_stem` | stem only | `solution1` | verified vs V1 order, bit-exact (host float) |
 | V2B | `radar_cnn_stream_dw1` | stem + DW1 | `solution2_dw1` | verified vs V1 order, bit-exact (host float) |
-| V2C | `radar_cnn_stream_full` | **complete CNN** | `solution3_full` | host float bit-exact + 8/8 golden PyTorch samples; **Vitis 2025.1 ap_fixed csim PASSED 2026-07-12 (bit-exact, 0 errors)** |
+| V2C | `radar_cnn_stream_full` | **complete CNN** | `solution3_full` | **fully verified**: ap_fixed csim bit-exact · C/RTL cosim PASS (112,020 cycles measured) · placed & routed (95,735 LUT, 599 DSP); full system timing met at ~97 MHz |
 
-A first Vitis 2025.1 synthesis of `radar_cnn_stream_full` was captured
-2026-07-12; it did not fit the K26 (BRAM 816/~288, LUT ~202k/~117k) and
-drove the optimization round documented below. Vitis 2025.1 is installed
-at `C:\Xilinx\2025.1` (launch via `vitis-run` — the classic `vitis_hls`
-executable no longer exists in 2025.1).
+History: the first synthesis of `radar_cnn_stream_full` did not fit the K26
+(BRAM 816/~288, LUT ~202k/~117k) and drove the optimization round documented
+below; the optimized design fits with headroom. Reports live in
+`../../reports/v2c_full_vitis2022_2/`. The flow runs under classic
+`vitis_hls` (2022.2) or `vitis-run --mode hls` (2025.1, which has no
+`vitis_hls` executable).
 
 ## DW1 stride correction (resolves the old V2B open item)
 

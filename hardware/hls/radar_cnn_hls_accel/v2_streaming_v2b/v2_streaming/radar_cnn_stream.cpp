@@ -188,12 +188,15 @@ void radar_cnn_stream_dw1(const data_t *input, data_t *dw1_output) {
 // line buffers; pointwise/pool/GAP stages are token-at-a-time operators.
 //
 // Depthwise UF (channels per cycle) and pointwise UF_IN x UF_OUT tile
-// sizes are the DSP/throughput knobs. After the 2026-07 optimization
-// round the depthwise stages run one flattened II=1 pipeline each
-// (~10k cycles max), so the frame rate is set by PW1 and PW2 at
-// 160k cycles/frame each (10,000 px x (16/8)*(32/4), resp.
-// 2,500 px x (32/8)*(64/4)): ~1.07 ms at 150 MHz, ~930 fps. Next knob if
-// more is needed: raise UF_IN or UF_OUT on BOTH PW1 and PW2 (they tie).
+// sizes are the DSP/throughput knobs. After the 2026-07 balancing round
+// the budget is spent where the cycles are: the depthwise stages were
+// over-provisioned (2k-10k cycle intervals against a 160k bottleneck,
+// ~650 DSPs of dead parallelism), so their UF was cut to land all four
+// at ~8k-22k cycles and the reclaimed DSPs widened every pointwise
+// tile. Frame rate is set by PW1 and PW2 at 80k cycles/frame each
+// (10,000 px x (16/8)*(32/8), resp. 2,500 px x (32/8)*(64/8)):
+// ~533 us at 150 MHz, ~1,875 fps. Going wider (40k) prices out at
+// ~1.3k DSPs on this 1,248-DSP part -- the design is DSP-limited here.
 void radar_cnn_stream_full(const data_t *input, data_t *logits) {
     // Input widened to 128-bit beats (8 samples/beat) so the read burst
     // is 1,250 beats instead of 10,000. The logits port stays narrow on
@@ -268,31 +271,32 @@ void radar_cnn_stream_full(const data_t *input, data_t *logits) {
 
     read_input(input, input_pixels);
     stem_conv_stream(input_pixels, stem_pixels);
-    // Block 1 at 100x100: DW1 (all 16 channels/cycle), PW1 16->32, pool to 50x50.
-    depthwise_conv_stream<C_STEM, H0, W0, C_STEM>(
+    // Block 1 at 100x100: DW1 (8 ch/cycle -> 20,402 cy), PW1 16->32
+    // (8x8 tile -> 80,000 cy, the critical path), pool to 50x50.
+    depthwise_conv_stream<C_STEM, H0, W0, 8>(
         stem_pixels, dw1_pixels, W_DW1, B_DW1);
-    pointwise_conv_stream<C_STEM, C_B1, H0 * W0, 8, 4, true>(
+    pointwise_conv_stream<C_STEM, C_B1, H0 * W0, 8, 8, true>(
         dw1_pixels, pw1_pixels, W_PW1, B_PW1);
     maxpool_stream<C_B1, H0, W0>(pw1_pixels, pool1_pixels);
-    // Block 2 at 50x50: DW2 (8 ch/cycle), PW2 32->64, pool to 25x25.
-    depthwise_conv_stream<C_B1, H1, W1, 8>(
+    // Block 2 at 50x50: DW2 (4 ch/cycle -> 20,808 cy), PW2 32->64
+    // (8x8 tile -> 80,000 cy, ties PW1), pool to 25x25.
+    depthwise_conv_stream<C_B1, H1, W1, 4>(
         pool1_pixels, dw2_pixels, W_DW2, B_DW2);
-    pointwise_conv_stream<C_B1, C_B2, H1 * W1, 8, 4, true>(
+    pointwise_conv_stream<C_B1, C_B2, H1 * W1, 8, 8, true>(
         dw2_pixels, pw2_pixels, W_PW2, B_PW2);
     maxpool_stream<C_B2, H1, W1>(pw2_pixels, pool2_pixels);
-    // Block 3 at 25x25: DW3, PW3 64->96, pool to 12x12 (floor of 25/2).
-    depthwise_conv_stream<C_B2, H2, W2, 8>(
+    // Block 3 at 25x25: DW3 (2 ch/cycle -> 21,632 cy), PW3 64->96
+    // (8x8 tile -> 60,000 cy), pool to 12x12 (floor of 25/2).
+    depthwise_conv_stream<C_B2, H2, W2, 2>(
         pool2_pixels, dw3_pixels, W_DW3, B_DW3);
-    pointwise_conv_stream<C_B2, C_B3, H2 * W2, 8, 4, true>(
+    pointwise_conv_stream<C_B2, C_B3, H2 * W2, 8, 8, true>(
         dw3_pixels, pw3_pixels, W_PW3, B_PW3);
     maxpool_stream<C_B3, H2, W2>(pw3_pixels, pool3_pixels);
-    // Block 4 at 12x12: DW4, PW4 96->128. PW4 stays at UF_OUT=2: its
-    // 144 px x (96/8)*(128/2) = 110,592 cycles already sit below the
-    // 160k-cycle PW1/PW2 critical path, so widening it would spend 16
-    // more DSPs for zero frame-rate gain.
-    depthwise_conv_stream<C_B3, H3, W3, 8>(
+    // Block 4 at 12x12: DW4 (2 ch/cycle -> 8,112 cy), PW4 96->128
+    // (8x4 tile -> 55,296 cy, well under the 80k critical path).
+    depthwise_conv_stream<C_B3, H3, W3, 2>(
         pool3_pixels, dw4_pixels, W_DW4, B_DW4);
-    pointwise_conv_stream<C_B3, C_B4, H3 * W3, 8, 2, true>(
+    pointwise_conv_stream<C_B3, C_B4, H3 * W3, 8, 4, true>(
         dw4_pixels, pw4_pixels, W_PW4, B_PW4);
     // Head: global average over the 144 remaining pixels, then the 1x1
     // classifier (a single-token pointwise layer with no ReLU).
