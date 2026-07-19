@@ -14,3 +14,15 @@ hardware/**/solution*/
 hardware/**/.Xil/
 hardware/**/vivado_project/
 hardware/**/radar_cnn_*_prj/
+hardware/**/*.log
+vitis_hls.log
+*.jou
+*.str
+report_fill_values.txt
+report_update_claude_web.txt
+*.docx
+
+# local tooling / editor / AI-assistant config
+CLAUDE.md
+.claude/
+.vscode/

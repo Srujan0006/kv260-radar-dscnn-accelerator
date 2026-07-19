@@ -1,10 +1,10 @@
 # Notebooks
 
-Planned notebooks:
+No notebooks yet. The one still intended is a KV260 live-demo notebook
+(load the compiled `.xmodel`, run VART inference on cached spectrogram
+windows, show per-class logits) — blocked on the physical board benchmark,
+the last pending item in the top-level README.
 
-1. Dataset inspection
-2. Spectrogram visualization
-3. Training and validation results
-4. KV260 live demonstration
-
-The live notebook remains pending until physical KV260 VART execution is available.
+Everything a notebook would otherwise show already exists as committed
+artifacts: spectrogram grids and confusion matrices in `outputs/`, and
+metrics JSON under `outputs/recordwise*/`.

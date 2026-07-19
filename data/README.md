@@ -1,10 +1,5 @@
 # Data folder
 
-**What changed (2026-07-11):** the raw dataset used to live inside the repo at
-`data/real/radar_iq.npy` and made it ~1.5 GB. It was moved out unmodified
-(byte count verified) and all script defaults were updated, shrinking the repo
-to ~41 MB.
-
 The raw dataset is intentionally kept OUTSIDE the repository to keep it
 compact (the raw file is ~1.45 GiB):
 
@@ -39,7 +34,7 @@ Regenerate them with:
 
 ```bash
 python preprocessing/01_make_recordwise_windows.py --input ../radar_data/radar_iq.npy
-# (legacy converter: scripts/10_convert_real_npy_to_windows.py)
+# (legacy converter: scripts/legacy/10_convert_real_npy_to_windows.py)
 ```
 
 None of the `.npy`/`.npz` files are tracked by git (see `.gitignore`).
