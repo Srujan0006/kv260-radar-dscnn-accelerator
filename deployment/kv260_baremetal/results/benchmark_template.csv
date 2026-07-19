@@ -1,0 +1,1 @@
+run_id,sample_id,expected_class,predicted_class,raw_logit_0,raw_logit_1,raw_logit_2,raw_logit_3,elapsed_counts,latency_us,pass_fail
