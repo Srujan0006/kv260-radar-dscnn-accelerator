@@ -16,10 +16,6 @@ Detailed JSON results are stored as `hls_host_float_class0.json` through
 This validates layer order, padding, pooling, folded BatchNorm weights, and the
 1×1 classifier in floating point. It is not fixed-point HLS validation.
 
-Update 2026-07-11: Vitis 2025.1 is now installed at C:/Xilinx/2025.1 (use `vitis-run --mode hls --tcl ...`; the classic `vitis_hls` launcher no longer exists). These steps remain pending:
-
-- Vitis HLS C simulation using `ap_fixed`
-- C synthesis
-- resource estimate
-- latency estimate
-- IP export
+Fixed-point C simulation, C synthesis, C/RTL co-simulation and implementation were
+completed afterwards. See `6_hardware/hls/radar_cnn_hls_accel/reports/` and
+`6_hardware/vivado/`.

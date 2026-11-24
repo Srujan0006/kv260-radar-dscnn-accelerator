@@ -1,28 +1,120 @@
+# ---------------------------------------------------------------------------
+# AI assistant / agent files
+# ---------------------------------------------------------------------------
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+AGENTS.md
+.agent.md
+.agents/
+GEMINI.md
+.gemini/
+.cursor/
+.cursorrules
+.cursorignore
+.windsurf/
+.windsurfrules
+.continue/
+.aider*
+.codex/
+.copilot/
+.github/copilot-instructions.md
+.github/instructions/
+*.prompt.md
+*.chatmode.md
+.specstory/
+.kiro/
+.roo/
+.clinerules
+.cline/
+
+# ---------------------------------------------------------------------------
+# Local notes, drafts and personal archives
+# ---------------------------------------------------------------------------
+.local_archive/
+report_fill_values.txt
+report_update_*.txt
+*.docx
+*.pptx
+*.xlsx
+~$*
+
+# ---------------------------------------------------------------------------
+# Editors and OS
+# ---------------------------------------------------------------------------
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
 .venv/
+venv/
+env/
 __pycache__/
-*.pyc
-*.exe
+*.py[cod]
+*.egg-info/
 .pytest_cache/
-outputs/*.npz
-outputs/**/*.pth
-outputs/**/*.onnx
-outputs/**/*.xmodel
-outputs/**/*.npz
-data/**/*.npz
-data/**/*.npy
-hardware/**/solution*/
-hardware/**/.Xil/
-hardware/**/vivado_project/
-hardware/**/radar_cnn_*_prj/
-hardware/**/*.log
-vitis_hls.log
+.ipynb_checkpoints/
+.cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------------------------------------------------------------------------
+# Dataset (not redistributed; see 1_data/README.md)
+# ---------------------------------------------------------------------------
+*.npy
+*.npz
+!1_data/raw/.gitkeep
+!1_data/processed/.gitkeep
+
+# ---------------------------------------------------------------------------
+# Training / export outputs
+# Only curated evidence under outputs/ is tracked; bulky or intermediate
+# files are ignored. The final checkpoint, ONNX and DPU xmodels are kept.
+# ---------------------------------------------------------------------------
+outputs/**/best_model.pth
+outputs/**/*.log
+outputs/eval_run/
+outputs/vai_quant/
+*.pt
+*.ckpt
+*.bit
+
+# ---------------------------------------------------------------------------
+# Vitis HLS / Vivado / Vitis build products
+# Curated reports and XSA files live in 6_hardware/**/reports and
+# 6_hardware/vivado; generated projects are never committed.
+# ---------------------------------------------------------------------------
+*_prj/
+**/solution*/
+.Xil/
 *.jou
 *.str
-report_fill_values.txt
-report_update_claude_web.txt
-*.docx
+*.pb
+*.wdb
+*.backup.log
+vitis_hls.log
+vivado*.log
+*_console.log
+.hls.failed
+dfx_runtime.txt
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.gen/
+_ide/
+logs/
 
-# local tooling / editor / AI-assistant config
-CLAUDE.md
-.claude/
-.vscode/
+# Build binaries
+*.exe
+*.o
+*.elf

@@ -1,65 +1,69 @@
 # Architecture
 
-## End-to-end partition
+## System partition
 
 ```mermaid
 flowchart LR
-    IQ[Raw radar IQ] --> WIN[256-sample windows<br/>stride 32]
-    WIN --> STFT[CPU/PS<br/>STFT + max-energy range selection]
-    STFT --> SPEC[100×100 normalized spectrogram]
-    SPEC --> DPU[KV260 DPU<br/>Radar2DCNN]
-    DPU --> LOGITS[4 logits]
-    LOGITS --> POST[CPU/PS<br/>softmax + class decision]
+    IQ[Raw complex IQ] --> WIN[256-sample windows, stride 32]
+    WIN --> SPEC[PS: top-3 energy bins → STFT → 100×100 image]
+    SPEC --> ACC[PL: streaming HLS accelerator]
+    ACC --> LOG[4 logits]
+    LOG --> DEC[PS: argmax / recording-level mean of logits]
 ```
 
-The programmable-logic boundary starts at the normalized spectrogram. Raw IQ
-windowing and STFT processing remain on the Arm processing system for the first
-deployment version.
+Windowing and spectrogram generation run in software on the Arm processing
+system. CNN inference runs in programmable logic.
 
-## DPU-friendly CNN
+## Spectrogram pipeline (`src/radar2dcnn/spectrogram.py`)
 
-Input: `[N, 1, 100, 100]`
+For each window of 5 range bins × 256 slow-time samples:
 
-```text
-Conv2d(1 → 16, 3×3) + BatchNorm + ReLU
-MaxPool2d(2×2)                                  100 → 50
-Conv2d(16 → 32, 3×3) + BatchNorm + ReLU
-MaxPool2d(2×2)                                   50 → 25
-Conv2d(32 → 64, 3×3) + BatchNorm + ReLU
-MaxPool2d(2×2)                                   25 → 12
-Conv2d(64 → 64, 3×3) + BatchNorm + ReLU
-AvgPool2d(12×12)                                 12 → 1
-Conv2d(64 → 4, 1×1)
-Flatten                                             → 4 logits
-```
+1. Rank the range bins by mean power and keep the top 3.
+2. For each kept bin: remove DC, run an STFT (Hann 64, overlap 56, 128-point FFT,
+   two-sided, fftshift), take power, log-scale, resize bilinearly to 100×100,
+   then min-max normalize to [0, 1].
+3. Average the three images.
 
-Classes are Drone, Bird, Human, and CornerReflector.
+## RadarDSCNN2D (`src/radar2dcnn/model.py`)
 
-## Hardware/software co-design result
+| Stage | Operation | Output | Params |
+|---|---|---|---:|
+| Stem | Conv 3×3, 1→16, BN, ReLU | 16×100×100 | 176 |
+| Block 1 | DW 3×3 + PW 1×1, 16→32, MaxPool | 32×50×50 | 752 |
+| Block 2 | DW 3×3 + PW 1×1, 32→64, MaxPool | 64×25×25 | 2,528 |
+| Block 3 | DW 3×3 + PW 1×1, 64→96, MaxPool | 96×12×12 | 7,040 |
+| Block 4 | DW 3×3 + PW 1×1, 96→128 | 128×12×12 | 13,600 |
+| Head | Global average pool, Conv 1×1 128→4 | 4 | 516 |
+| **Total** | | | **24,612** |
 
-The original `Linear(64 → 4)` classifier compiled to the CPU path. Replacing it
-with an equivalent `1×1 Conv2d(64 → 4)` classifier produced a real DPU subgraph:
+About 19.9 M MACs per image. The classifier is a 1×1 convolution rather than a
+`Linear` layer, so the whole graph stays inside the operators the Vitis AI DPU
+supports.
 
-```text
-USER → DPU → CPU
-```
+## Streaming accelerator (`6_hardware/hls/radar_cnn_hls_accel/v2_streaming/`)
 
-This operator-level change is the central co-design finding of the project.
+The whole network is one `#pragma HLS DATAFLOW` region with 16 stages connected
+by `hls::stream` FIFOs: AXI reader → stem → 4 × (DW → PW [→ pool]) → GAP →
+classifier → AXI writer. No feature map is ever stored in full. Depthwise
+stages keep two line-buffer rows, pools keep one row of running maxima, and GAP
+keeps 128 accumulators.
 
-## DPU and HLS paths
+- **Arithmetic:** `data_t = ap_fixed<16,6>` (Q6.10), `acc_t = ap_fixed<32,12>`
+  (truncate/wrap defaults). Each stage starts accumulating from the bias and
+  adds channels in ascending order, so a float build is bit-comparable with
+  the reference.
+- **Interfaces:** `s_axi_control` (control and buffer pointers), `m_axi_gmem0`
+  (input, widened to 128-bit beats), `m_axi_gmem1` (4 logits), interrupt.
+- **Weights:** BatchNorm is folded into compile-time ROMs in `weights.h`, kept
+  in BRAM/LUT-RAM. URAM is avoided because it cannot be initialized from the
+  bitstream.
+- **Key optimizations:** flattened (row, col, channel-block) depthwise pipelines
+  at II=1; inter-stage FIFOs forced to SRL; pointwise weights re-banked per
+  output lane.
 
-| Path | Role | Status |
-|---|---|---|
-| Vitis AI DPU | Main deployment | Quantized and compiled; board execution pending |
-| Custom HLS CNN | Optional accelerator | Host-float equivalence passed; fixed-point synthesis pending |
+## Vitis AI DPU path
 
-The HLS design folds BatchNorm into convolution weights and implements the same
-1×1 classifier. Its direct nested-loop implementation prioritizes readability;
-line buffers, streaming, tiling, and channel parallelism are future work.
-
-## Validation boundary
-
-Window-level stride32 validation is retained as the engineering/MVP benchmark.
-The official record-wise pipeline assigns every eligible source row by
-`row_index % 3`: remainder 0 to train, 1 to validation, and 2 to test. All
-windows inherit their source row's assignment, preventing cross-split overlap.
+`outputs/real/compiled_kv260_dpu/radar_2dcnn.xmodel` targets
+`DPUCZDX8G_ISA1_B4096` with subgraphs USER → DPU → CPU. It was compiled from
+the earlier plain `Radar2DCNN` (4 standard 3×3 conv layers, max-energy-bin
+input), **not** from RadarDSCNN2D.

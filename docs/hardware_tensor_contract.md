@@ -1,6 +1,6 @@
 # Hardware tensor contract
 
-This contract is frozen with `hardware/hls/radar_cnn_hls_accel/golden/`.
+This contract is frozen with `6_hardware/hls/radar_cnn_hls_accel/golden/`.
 
 | Property | Contract |
 |---|---|

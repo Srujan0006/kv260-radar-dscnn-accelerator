@@ -1,6 +1,0 @@
-{
-    "lib": "libvart-dpu-runner.so",
-    "filename": "radar_2dcnn.xmodel",
-    "kernel": "",
-    "target": "DPUCZDX8G_ISA1_B4096"
-}

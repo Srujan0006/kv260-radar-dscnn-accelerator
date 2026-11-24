@@ -6,7 +6,7 @@ import numpy as np
 
 
 def _preprocessing_module():
-    path = Path("preprocessing/01_make_recordwise_windows.py")
+    path = Path(__file__).resolve().parents[1] / "2_preprocessing" / "make_recordwise_windows.py"
     spec = importlib.util.spec_from_file_location("recordwise_preprocessing", path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
