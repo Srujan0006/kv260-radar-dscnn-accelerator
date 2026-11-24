@@ -25,6 +25,20 @@ flowchart LR
 | System implementation | Zynq UltraScale+ block design, **timing met** (WNS +1.149 ns), LUT 84.3 %, DSP 48 %, BRAM 57.5 tiles, 0 URAM | [`6_hardware/vivado/optimized/`](6_hardware/vivado/optimized/) |
 | Board run | Bare-metal benchmark app prepared; **not yet run on hardware** | [`7_deployment/kv260_baremetal/`](7_deployment/kv260_baremetal/) |
 
+## How it evolved
+
+1. **A score that was too good**: a plain CNN on a random window split scored 96.9 %.
+   A recording-disjoint split dropped it to 43.7 %. Overlapping windows had been
+   leaking between train and test.
+2. **A model that holds up**: top-3 energy bins, a 24.6k-parameter DS-CNN and
+   capped class weights. Grouped 5-fold reached 80.6 % with zero overlap.
+3. **A design that didn't fit**: the frame-buffered HLS design needed 564 % of the
+   BRAM. A streaming DATAFLOW rewrite plus three optimizations brought it to 57 BRAM.
+4. **Two implemented systems**: a baseline at 100 MHz (224k cycles), then an
+   unroll rebalance that halved latency to 112k cycles at ~97 MHz with more timing margin.
+
+The full story with the evidence for each step is in [docs/project_history.md](docs/project_history.md).
+
 ## Repository layout
 
 ```text
